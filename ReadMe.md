@@ -27,7 +27,7 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 #### Client Features
 1. Choose any user name.
 2. Enter a service URL and connect.
-3. Disconnect at any time. (Closing the appliction also disconnects.)
+3. Disconnect at any time. (Closing the application also disconnects.)
 4. Change status (available, busy, away, etc.) without disconnecting. "Busy" status will block all messages.
 5. Filter messages by user name or search criteria. (RP201: Improved with [Qactive](https://github.com/RxDave/Qactive).)
 6. Optionally have a sound played when a message arrives.
