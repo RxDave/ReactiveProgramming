@@ -44,13 +44,13 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 
 #### Cross-cutting Concerns
 1. Diagnostics
-   i. Logging
-   i. Instrumentation
+   1. Logging
+   1. Instrumentation
 2. Schedulers
-   i. Concurrency
-   i. UI-thread
+   1. Concurrency
+   1. UI-thread
 3. Connectivity
-   i. Actual status (connected or disconnected)
+   1. Actual status (connected or disconnected)
 
 #### Diagnostic Tools
 1. User emulator (robot)
@@ -59,32 +59,32 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 #### Client Design
 ##### Connecting to the Server
 1. The user can set their "user name" before connecting.
-   i. The user name from their last session is displayed by default.
+   1. The user name from their last session is displayed by default.
 2. The user must enter a service URL and click a Connect button.
-   i. When the Connect button is pressed:
-      i. Disable it.
-      i. Display a waiting animation and a Cancel button.
-      i. Try connecting to the specified URL.
-      i. If the connection cannot be established, or if the service URL is invalid:
+   1. When the Connect button is pressed:
+      1. Disable it.
+      1. Display a waiting animation and a Cancel button.
+      1. Try connecting to the specified URL.
+      1. If the connection cannot be established, or if the service URL is invalid:
          1. Display any network, service or URL-validation errors.
          2. Focus the service URL and select it.
          3. Enable the Connect button. (goto #2)
-      i. If the Cancel button is pressed:
+      1. If the Cancel button is pressed:
          1. Cancel the connection attempt that is in-progress (best effort).
          2. If the cancellation is unsuccessful:
-            i. Try disconnecting from the specified URL.
-               i. If the program fails to disconnect gracefully, then log any errors and continue.
+            1. Try disconnecting from the specified URL.
+               1. If the program fails to disconnect gracefully, then log any errors and continue.
          3. Enable the Connect button. (goto #2)
-      i. If the service requires authentication:
+      1. If the service requires authentication:
          1. Prompt the user to enter a password.
             1. If the server rejects the password:
-               i. Enable the Connect button. (goto #2)
-      i. Otherwise, change the Connect button into a Disconnect button and enable it.
-   i. When the Disconnect button is pressed:
-      i. Disable it.
-      i. Try disconnecting from the specified URL.
+               1. Enable the Connect button. (goto #2)
+      1. Otherwise, change the Connect button into a Disconnect button and enable it.
+   1. When the Disconnect button is pressed:
+      1. Disable it.
+      1. Try disconnecting from the specified URL.
          1. If the program fails to disconnect gracefully, then log any errors and continue.
-      i. Change the Disconnect button into a Connect button and enable it. (goto #2)
+      1. Change the Disconnect button into a Connect button and enable it. (goto #2)
 
 ##### Receiving Messages
 1. TODO
