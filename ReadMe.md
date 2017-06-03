@@ -50,7 +50,8 @@ Using a reactive-first approach, we'll design and implement a client-server chat
    1. Concurrency
    1. UI-thread
 3. Connectivity
-   1. Actual status (connected or disconnected)
+   1. Service status (connected or disconnected)
+   2. Presented status (available, away, busy, etc.)
 
 #### Diagnostic Tools
 1. User emulator (robot)
