@@ -21,8 +21,8 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 1. Any number of clients may open a persistent connection to the chat server.
 2. All messages go through the server, where they are multicast to all connected clients.
 3. The service will not implement reliable messaging - it's entirely in-memory, without any fault tolerance.
-4. No 3rd-party dependencies. Only the latest version of Rx.NET and any required dependencies of the target platform(s). All features 
-   will be custom-coded, including network communication.
+4. No 3rd-party dependencies. Only the latest version of Rx.NET and any required dependencies of the target platform(s) will be used.
+5. All features will be custom-coded, including network communication.
 
 #### Client Features
 1. Choose any user name.
