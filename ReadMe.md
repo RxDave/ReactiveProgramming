@@ -1,7 +1,7 @@
 # Reactive Programming 101 (RP101)
 It's sometimes difficult to convince business owners, project managers and other developers to use the reactive 
 programming (RP) approach to software development. There are of course trade-offs to be made, although the benefits 
-of reactive programming often outweight the costs.
+of reactive programming often outweigh the costs.
 
 Perhaps many developers reject reactive programming because they're so used to object-oriented programming (OOP), 
 and they'd rather stick to what they know best. If you don't know how to build a reactive program, or the benefits 
