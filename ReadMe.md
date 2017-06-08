@@ -37,7 +37,7 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 10. View entire chat history. (Stored locally in AppData.)
 
 #### Service Features
-1. Blacklist IP addresses.
+1. Optionally whitelist IP addresses.
 2. Enable private server mode (requires client authentication).
 
 ## Chat Application Design
@@ -60,7 +60,7 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 #### Client Design
 ##### Startup
 1. Start the GUI in the following state: 
-   1. Server URL and Connect button are enabled.
+   1. Server URL field, user name field and Connect button are enabled.
    2. Chat GUI elements are disabled (including the message list and the Send button).
 2. Load the user's settings.
 3. If the last user name was saved, prepopulate the user name textbox.
@@ -117,10 +117,30 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 
 #### Server Design
 ##### Startup and Configuration
-1. TODO
+1. Load the server settings.
+2. If any whitelisted IP addresses are specified, verify they are valid URIs.
+   1. If any IP is invalid, stop the service with an unhandled exception.
+3. Listen for client connections.
 
-##### Receiving Messages
-1. TODO
+##### Receiving Connections
+1. When a client connection is received:
+   1. If the client's IP address is not in the whitelist:
+      1. Terminate the connection immediately, without any response. (end)
+   1. If authentication is enabled:
+      1. Send a password request message to the client.
+         1. If sending fails, then terminate the connection immediately. (end)
+      2. await a password response message.
+      3. If the password does not match or a password is not received within 2 minutes:
+         1. Terminate the connection immediately, without any response. (end)
+   1. Otherwise, add the client to the subscription list.
+   1. Listen for messages.
 
-##### Multicasting Messages
-1. TODO
+##### Disconnecting (graceful or otherwise)
+1. When a client disconnects or is later determined to be in a disconnected state:
+   1. Remove the client from the subscription list.
+
+##### Multicasting
+1. When a message is received:
+   1. Send the message to each client in the subscription list, including the original sender.
+      1. If sending fails, then terminate the connection immediately. (end)
+
