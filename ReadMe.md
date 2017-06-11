@@ -18,13 +18,22 @@ slides that list the benefits and omit the downsides, we're going to use the sci
 Using a reactive-first approach, we'll design and implement a client-server chat program with the following features.
 
 ### Chat Application Features
+#### Part I
 1. Any number of clients may open a persistent connection to the chat server.
 2. All messages go through the server, where they are multicast to all connected clients.
 3. The service will not implement reliable messaging - it's entirely in-memory, without any fault tolerance.
 4. No 3rd-party dependencies. Only the latest version of Rx.NET and any required dependencies of the target platform(s) will be used.
 5. All features will be custom-coded, including network communication.
 
-#### Client Features
+#### Part II
+After the primary feature set is complete, we'll add some new features to test the maintainability of the code.
+
+1. Display a list of users currently connected to the chat, including name and status.
+2. Add Twitter integration to allow a user to optionally send and receive direct messages through Twitter's 
+streaming API:\
+   https://dev.twitter.com/webhooks/account-activity
+
+#### Client Features, Part I
 1. Choose any user name.
 2. Enter a service URL and connect.
 3. Disconnect at any time. (Closing the application also disconnects.)
@@ -36,13 +45,23 @@ Using a reactive-first approach, we'll design and implement a client-server chat
 9. Option to display date and/or time with each incoming message.
 10. View entire chat history. (Stored locally in AppData.)
 
-#### Service Features
+#### Client Features, Part II
+1. Optionally, enter your Twitter handle when signing in.
+   1. Receive all of your Twitter DMs as chat messages.
+   2. Optionally, send any chat message to a specific user (currently in the chat) as a Twitter DM.
+
+#### Service Features, Part I
 1. Optionally whitelist IP addresses.
 2. Enable private server mode (requires client authentication).
 
+#### Service Features, Part II
+1. Send a snapshot of the current list of users to any user that connects, followed by deltas.
+2. Subscribe to Twitter's streaming API for all users that have specified a Twitter ID when signing in:\
+   https://dev.twitter.com/webhooks/account-activity
+
 ## Chat Application Design
 
-#### Cross-cutting Concerns
+### Cross-cutting Concerns
 1. Diagnostics
    1. Logging
    1. Instrumentation
@@ -53,10 +72,11 @@ Using a reactive-first approach, we'll design and implement a client-server chat
    1. Service status (connected or disconnected)
    2. Presented status (available, away, busy, etc.)
 
-#### Diagnostic Tools
+### Diagnostic Tools
 1. User emulator (robot)
 2. In-proc service
 
+### Specification: Part I
 #### Client Design
 ##### Startup
 1. Start the GUI in the following state: 
@@ -133,6 +153,7 @@ Using a reactive-first approach, we'll design and implement a client-server chat
       3. If the password does not match or a password is not received within 2 minutes:
          1. Terminate the connection immediately, without any response. (end)
    1. Otherwise, add the client to the subscription list.
+   1. Multicast a message: "User NAME has entered the chat.".
    1. Listen for messages.
 
 ##### Disconnecting (graceful or otherwise)
@@ -144,3 +165,14 @@ Using a reactive-first approach, we'll design and implement a client-server chat
    1. Send the message to each client in the subscription list, including the original sender.
       1. If sending fails, then terminate the connection immediately. (end)
 
+
+### Specification: Part II
+#### Client Design
+##### Connecting to the Server
+##### Receiving Messages
+##### Sending Messages
+
+#### Server Design
+##### Receiving Connections
+##### Disconnecting (graceful or otherwise)
+##### Multicasting
