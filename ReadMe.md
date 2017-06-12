@@ -71,6 +71,7 @@ streaming API:\
 3. Connectivity
    1. Service status (connected or disconnected)
    2. Presented status (available, away, busy, etc.)
+4. User preferences
 
 ### Diagnostic Tools
 1. User emulator (robot)
