@@ -32,6 +32,12 @@ After the primary feature set is complete, we'll add some new features to test t
 2. Add Twitter integration to allow a user to optionally send and receive direct messages through Twitter's 
 streaming API:\
    https://dev.twitter.com/webhooks/account-activity
+   
+#### Part III
+Unit testing reactive code is often easier when using a virtual time scheduler and/or reified notifications, which I'll introduce in this part of the series. By now we will probably have created some custom operators, so we'll test those; otherwise, I'll probably choose a small reactive query from the business layer to test.
+
+#### Part IV
+Finally, we'll measure performance and memory usage, and adjust our code to meet our goals. The app may already perform acceptably well by this point; in that case, I'll just have to pick some arbitrary goals and attempt to satisfy them, for didactic purposes only.
 
 #### Client Features, Part I
 1. Choose any user name.
