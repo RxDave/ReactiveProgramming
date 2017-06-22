@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{B1F7FA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Artifacts", "Artifacts", "{CC61EEA1-1DD7-42F5-89D6-65337C769E35}"
 	ProjectSection(SolutionItems) = preProject
+		Features.md = Features.md
 		ReadMe.md = ReadMe.md
+		Spec.md = Spec.md
 	EndProjectSection
 EndProject
 Global

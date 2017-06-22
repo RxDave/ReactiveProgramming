@@ -14,172 +14,76 @@ a significant supporting role in any modern application that is built with RP at
 In this video series, instead of attempting to define "Reactive Programming", or throwing around buzz words, or presenting 
 slides that list the benefits and omit the downsides, we're going to use the scientific approach.
 
-## We're Going To Build an Application
-Using a reactive-first approach, we'll design and implement a client-server chat program with the following features.
+## We're Going To Build an Application!
+Using a reactive-first approach, I'll design and implement a client-server chat program from the ground up.
 
-### Chat Application Features
-#### Part I
-1. Any number of clients may open a persistent connection to the chat server.
-2. All messages go through the server, where they are multicast to all connected clients.
-3. The service will not implement reliable messaging - it's entirely in-memory, without any fault tolerance.
-4. No 3rd-party dependencies. Only the latest version of Rx.NET and any required dependencies of the target platform(s) will be used.
-5. All features will be custom-coded, including network communication.
+All of my coding sessions will be recorded in a screen cast video series, accompanied by verbal explanations as I'm coding. None 
+of the design or the work has been planned ahead of time, except for the first draft of the
+[specification](https://github.com/RxDave/ReactiveProgramming/blob/master/Spec.md). None of my coding will be 
+edited<sup>1</sup>, so all of my poor design decisions, to my shame, will be recorded for all to see.
 
-#### Part II
-After the primary feature set is complete, we'll add some new features to test the maintainability of the code.
+The benefit of recording bad design decisions, and recording myself noticing them, and hopefully fixing them, including refactoring 
+and debugging, is that I won't be sugar coding the experience for anyone asking the question, "Is reactive programming right for me?"
+Undoubtedly, you must decide this for yourself, but much of the literature and videos out there right now don't provide a 
+comprehensive view, including the costs vs. benefits. I'm hoping to change that with this video series.
 
-1. Display a list of users currently connected to the chat, including name and status.
-2. Add Twitter integration to allow a user to optionally send and receive direct messages through Twitter's 
-streaming API:\
-   https://dev.twitter.com/webhooks/account-activity
-   
-#### Part III
-Unit testing reactive code is often easier when using a virtual time scheduler and/or reified notifications, which I'll introduce in this part of the series. By now we will probably have created some custom operators, so we'll test those; otherwise, I'll probably choose a small reactive query from the business layer to test.
+The entire program will be written in C#, although, I'll try to make my explanations useful in general for the many implementations
+of Rx on other platforms, such as Java and JavaScript.
 
-#### Part IV
-Finally, we'll measure performance and memory usage, and adjust our code to meet our goals. The app may already perform acceptably well by this point; in that case, I'll just have to pick some arbitrary goals and attempt to satisfy them, for didactic purposes only.
+The source code will be available for free in [my GitHub repo](https://github.com/RxDave/ReactiveProgramming), updated with each 
+new video in the series as each video is published.
 
-#### Client Features, Part I
-1. Choose any user name.
-2. Enter a service URL and connect.
-3. Disconnect at any time. (Closing the application also disconnects.)
-4. Change status (available, busy, away, etc.) without disconnecting. "Busy" status will block all messages.
-5. Filter messages by user name or search criteria. (RP201: Improved with [Qactive](https://github.com/RxDave/Qactive).)
-6. Optionally have a sound played when a message arrives.
-7. Choose a system sound or a custom sound file to play. (Default is C:\Windows\Media\Windows Notify.wav).
-8. Change font, size and color at any time. (Only affects subsequent messages.)
-9. Option to display date and/or time with each incoming message.
-10. View entire chat history. (Stored locally in AppData.)
+I may also try to leave some questions unanswered at the end of each video, so that viewers can try to solve problems themselves
+based on what they've learned in the video. The code up to that point will have been checked in, so viewers can checkout the latest
+code and continue coding from where I left off. Then, at the beginning of the subsequent video, I'll show my code and explain how I 
+decided to solve those problems myself. This is something that I'd really like to do, but without any planning upfront it may be 
+tricky, so I'm not going to commit to it just yet.
 
-#### Client Features, Part II
-1. Optionally, enter your Twitter handle when signing in.
-   1. Receive all of your Twitter DMs as chat messages.
-   2. Optionally, send any chat message to a specific user (currently in the chat) as a Twitter DM.
+<small>
+<sup>1</sup>Except perhaps long stretches of dullness or annoyances will be edited out; e.g., when I have to read documentation to 
+understand a third-party API before I can use it to add a feature, or if an audio segment is full of "umms" and "uhhs".
+Suggestions and constructive criticisms are welcomed.
+</small>
+<p></p>
 
-#### Service Features, Part I
-1. Optionally whitelist IP addresses.
-2. Enable private server mode (requires client authentication).
+##### Some of the topics to be covered are: 
+* An introduction to Rx (Reactive Extensions).
+* The proper use of Subjects.
+* A brief look at observable temperature (hot and cold).
+* Managing side effects
+* Debugging
+* Performance analysis and tuning
+* Testing
 
-#### Service Features, Part II
-1. Send a snapshot of the current list of users to any user that connects, followed by deltas.
-2. Subscribe to Twitter's streaming API for all users that have specified a Twitter ID when signing in:\
-   https://dev.twitter.com/webhooks/account-activity
+##### Required Prerequisite Knowledge
+It is highly recommended that you are comfortable with all of the items in the following list, because I won't be 
+providing any in-depth explanations about them in the videos.
+* **.NET Framework** or a comparable library; e.g., Java.
+* **C#** or a comparable C-style, GC'd language; e.g., Java, JavaScript.
+* **Visual Studio** or a comparable IDE.
+* **OOP** (Object-Oriented Programming)
 
-## Chat Application Design
+##### Recommended Prerequisite Knowledge
+The following is not required knowledge, but recommended if you want a smoother learning experience focused on RP alone.
+Being comfortable with these concepts will mean less confusion for you around the high-level RP design concepts, although 
+I'll provide some basic explanations anyway as each topic becomes relevant.
 
-### Cross-cutting Concerns
-1. Diagnostics
-   1. Logging
-   1. Instrumentation
-2. Schedulers
-   1. Concurrency
-   1. UI-thread
-3. Connectivity
-   1. Service status (connected or disconnected)
-   2. Presented status (available, away, busy, etc.)
-4. User preferences
+* **Functional Programming** - just the basics; e.g., higher-order functions, tuples, purity.
+* **LINQ** (Language INtegrated Query)\
+  I'll certainly provide some explanation for the non-C# developers out there, but it won't be in-depth. There are many 
+  resources out there on the web to teach you the depths of LINQ, and anyway much of the queries will be using the
+  fluent-method call syntax that most non-C# developers are familiar with already. If you don't know much about LINQ, 
+  then for our purpose of learning RP, I'll just focus my explanation on the basic usage and leave many assumptions for 
+  you to research on your own.
 
-### Diagnostic Tools
-1. User emulator (robot)
-2. In-proc service
+# Getting Started
 
-### Specification: Part I
-#### Client Design
-##### Startup
-1. Start the GUI in the following state: 
-   1. Server URL field, user name field and Connect button are enabled.
-   2. Chat GUI elements are disabled (including the message list and the Send button).
-2. Load the user's settings.
-3. If the last user name was saved, prepopulate the user name textbox.
-4. If the last service URL was saved, prepopulate the service URL textbox.
-5. If enabled, verify that the user's configured sound is available and it can be played.
-   1. If it cannot, display a warning to the user.
-
-##### Connecting to the Server
-1. The user can set their "user name" before connecting.
-   1. The user name from their last session is displayed by default.
-2. The user must enter a service URL and click a Connect button.
-   1. When the Connect button is pressed, and the user name is valid, and the service URL is a valid URI:
-      1. Disable the Connect button.
-      1. Display a waiting animation and a Cancel button.
-      1. Try connecting to the specified URL.
-      1. If the connection cannot be established, or if the service URL is invalid:
-         1. Display any network, service or URL-validation errors.
-         2. Focus the service URL and select it.
-         3. Enable the Connect button. (goto #2)
-      1. If the Cancel button is pressed:
-         1. Cancel the connection attempt that is in-progress (best effort).
-         2. If the cancellation is unsuccessful:
-            1. Try disconnecting from the specified URL.
-               1. If the program fails to disconnect gracefully, then log any errors and continue.
-         3. Enable the Connect button. (goto #2)
-      1. If the service requires authentication:
-         1. Prompt the user to enter a password.
-            1. If the server rejects the password:
-               1. Enable the Connect button. (goto #2)
-      1. Otherwise, change the Connect button into a Disconnect button and enable it.
-         1. Enable the chat GUI so that messages may be sent and received.
-         2. Save the user name and service URL in the user's settings.
-   1. When the Disconnect button is pressed:
-      1. Disable it.
-      1. Try disconnecting from the specified URL.
-         1. If the program fails to disconnect gracefully, then log any errors and continue.
-      1. Change the Disconnect button into a Connect button and enable it. (goto #2)
-         1. Disable the chat GUI to prevent messages from being sent or received.
-
-##### Receiving Messages
-1. When a message is received:
-   1. If the user's status is not "busy" and the message matches the user's current filter criteria (if any):
-      1. Append the message to the message list.
-         1. Include the date and/or time based on the user's current settings.
-         1. Render the message in the font, size and color received with the message. If none received, use defaults.
-      1. If the option to play a sound is enabled, and the chat window is not currently in focus:
-         1. Play the user's configured sound.
-
-##### Sending Messages
-1. When the 'Enter' key is pressed or the 'Send' button is clicked:
-   1. If the message is not entirely whitespace:
-      1. Send the message to the server.
-         1. Include the current font, size and color with the message. Omit them if they are currently the defaults.
-
-#### Server Design
-##### Startup and Configuration
-1. Load the server settings.
-2. If any whitelisted IP addresses are specified, verify they are valid URIs.
-   1. If any IP is invalid, stop the service with an unhandled exception.
-3. Listen for client connections.
-
-##### Receiving Connections
-1. When a client connection is received:
-   1. If the client's IP address is not in the whitelist:
-      1. Terminate the connection immediately, without any response. (end)
-   1. If authentication is enabled:
-      1. Send a password request message to the client.
-         1. If sending fails, then terminate the connection immediately. (end)
-      2. await a password response message.
-      3. If the password does not match or a password is not received within 2 minutes:
-         1. Terminate the connection immediately, without any response. (end)
-   1. Otherwise, add the client to the subscription list.
-   1. Multicast a message: "User NAME has entered the chat.".
-   1. Listen for messages.
-
-##### Disconnecting (graceful or otherwise)
-1. When a client disconnects or is later determined to be in a disconnected state:
-   1. Remove the client from the subscription list.
-
-##### Multicasting
-1. When a message is received:
-   1. Send the message to each client in the subscription list, including the original sender.
-      1. If sending fails, then terminate the connection immediately. (end)
-
-
-### Specification: Part II
-#### Client Design
-##### Connecting to the Server
-##### Receiving Messages
-##### Sending Messages
-
-#### Server Design
-##### Receiving Connections
-##### Disconnecting (graceful or otherwise)
-##### Multicasting
+1. Read the [features document](https://github.com/RxDave/ReactiveProgramming/blob/master/Features.md) to get yourself
+   acquainted with the concepts of the chat application that we'll be building.
+2. Glance over the [technical specification](https://github.com/RxDave/ReactiveProgramming/blob/master/Spec.md) if you
+   want to look ahead at what the video series covers in more detail. In many of the videos, perhaps the most important
+   regarding RP in general, I'll be coding directly against the specification.
+3. Prepare your environment if you wish to code along. Here's the environment that I'll be using in the video series:
+   1. Windows 10
+   1. Visual Studio Community 2017
+   1. .NET Framework 4.6.2
