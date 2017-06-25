@@ -23,7 +23,7 @@
 1. Start the GUI in the following state: 
    1. Server URL field, user name field and Connect button are enabled.
    2. Chat GUI elements are disabled (including the message list and the Send button).
-2. Load the user's settings.
+2. Load the user's preferences.
 3. If the last user name was saved, pre-populate the user name textbox.
 4. If the last service URL was saved, pre-populate the service URL textbox.
 5. If enabled, verify that the user's configured sound is available and it can be played.
@@ -53,7 +53,7 @@
                1. Enable the Connect button. (goto #2)
       1. Otherwise, change the Connect button into a Disconnect button and enable it.
          1. Enable the chat GUI so that messages may be sent and received.
-         2. Save the user name and service URL in the user's settings.
+         2. Save the user name and service URL in the user's preferences.
    1. When the Disconnect button is pressed:
       1. Disable it.
       1. Try disconnecting from the specified URL.
@@ -65,7 +65,7 @@
 1. When a message is received:
    1. If the user's status is not "busy" and the message matches the user's current filter criteria (if any):
       1. Append the message to the message list.
-         1. Include the date and/or time based on the user's current settings.
+         1. Include the date and/or time based on the user's current preferences.
          1. Render the message in the font, size and color received with the message. If none received, use defaults.
       1. If the option to play a sound is enabled, and the chat window is not currently in focus:
          1. Play the user's configured sound.
