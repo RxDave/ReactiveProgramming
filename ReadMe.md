@@ -17,6 +17,8 @@ slides that list the benefits and omit the downsides, we're going to use the sci
 ## We're Going To Build an Application!
 Using a reactive-first approach, I'll design and implement a client-server chat program from the ground up.
 
+[Watch the series now on YouTube as it develops!](https://www.youtube.com/playlist?list=PLzLa5EktSmly4OP2nvzGfwdbVDn52d1rM)
+
 [![RP101](https://img.youtube.com/vi/WBn4ZhR7C94/0.jpg)](https://www.youtube.com/playlist?list=PLzLa5EktSmly4OP2nvzGfwdbVDn52d1rM)
 
 All of my coding sessions will be recorded in a screen cast video series, accompanied by verbal explanations as I'm coding. None 
