@@ -22,6 +22,7 @@
 ##### Startup
 1. Start the GUI in the following state: 
    1. Server URL field, user name field and Connect button are enabled.
+   1. The user name from their last session is displayed by default in the user name field.
    2. Chat GUI elements are disabled (including the message list and the Send button).
 2. Load the user's preferences.
 3. If the last user name was saved, pre-populate the user name textbox.
@@ -31,7 +32,6 @@
 
 ##### Connecting to the Server
 1. The user can set their "user name" before connecting.
-   1. The user name from their last session is displayed by default.
 2. The user must enter a service URL and click a Connect button.
    1. When the Connect button is pressed, and the user name is valid, and the service URL is a valid URI:
       1. Disable the Connect button.
