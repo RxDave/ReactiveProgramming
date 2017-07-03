@@ -5,9 +5,17 @@
     IObservable<Uri> ServiceUrls { set; }
     IObservable<Unit> Connects { set; }
     IObservable<Unit> Cancellations { set; }
+    IObservable<Unit> Authentications { set; }
+    IObservable<string> Passwords { set; }
 
 #### Output
     IObservable<bool> Connections { get; }
-    IObservable<string> ConnectionFailures { get; }
+    IObservable<ConnectionFailureReason> ConnectionFailures { get; }
+    IObservable<Unit> Authentications { get; }
 
-### Presenting Layer
+### Presentation Layer
+#### Input
+    IObservable<Unit> Authentications { set; }
+
+#### Output
+    IObservable<string> Passwords { get; }
