@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.0.0-preview00001" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0-preview2-25405-01" />
   </ItemGroup>
 
 </Project>
