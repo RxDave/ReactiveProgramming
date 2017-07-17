@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{B1F7FA99-081A-463F-A482-BDBE5FA00E76}"
 EndProject
@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Artifacts", "Artifacts", "{
 		Spec.md = Spec.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat", "Source\Chat\Chat.csproj", "{C4621508-4322-43FB-915B-48C769F632ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat", "Source\Chat\Chat.csproj", "{C4621508-4322-43FB-915B-48C769F632ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.UI.Desktop", "Source\Chat.UI.Desktop\Chat.UI.Desktop.csproj", "{C2F6BA2F-0D63-4F5F-8EC5-D32EB816C225}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,11 +27,16 @@ Global
 		{C4621508-4322-43FB-915B-48C769F632ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4621508-4322-43FB-915B-48C769F632ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4621508-4322-43FB-915B-48C769F632ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F6BA2F-0D63-4F5F-8EC5-D32EB816C225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F6BA2F-0D63-4F5F-8EC5-D32EB816C225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F6BA2F-0D63-4F5F-8EC5-D32EB816C225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F6BA2F-0D63-4F5F-8EC5-D32EB816C225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C4621508-4322-43FB-915B-48C769F632ED} = {B1F7FA99-081A-463F-A482-BDBE5FA00E76}
+		{C2F6BA2F-0D63-4F5F-8EC5-D32EB816C225} = {B1F7FA99-081A-463F-A482-BDBE5FA00E76}
 	EndGlobalSection
 EndGlobal

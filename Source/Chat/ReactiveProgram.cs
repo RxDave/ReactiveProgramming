@@ -47,7 +47,7 @@ namespace Chat
     public ReactiveInput Input { get; }
 
     IObservable<bool> Connections { get; }
-    IObservable<ConnectionFailureReason> ConnectionFailures { get; }
+    //IObservable<ConnectionFailureReason> ConnectionFailures { get; }
     IObservable<Unit> Authentications { get; }
 
     IObservable<Unit> InvalidUserNames { get; }
