@@ -17,6 +17,8 @@
       set => Set(ref serviceUrl, value);
     }
 
+    public bool ShowPassword => false;
+
     public ReactiveCommand Connect { get; } = new ReactiveCommand();
   }
 }

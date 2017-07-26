@@ -15,22 +15,40 @@
     <Grid.RowDefinitions>
       <RowDefinition />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition />
     </Grid.RowDefinitions>
 
     <DockPanel Grid.Row="0" VerticalAlignment="Bottom" Margin="5">
       <Label DockPanel.Dock="Left" Content="User name:" Target="{Binding ElementName=userName}"
              Width="100" HorizontalContentAlignment="Right" />
-      <TextBox Name="userName" Text="{Binding UserName}" />
+      <TextBox Name="userName" Text="{Binding UserName}" IsEnabled="{Binding IsUserNameEditable}" />
     </DockPanel>
 
     <DockPanel Grid.Row="1" VerticalAlignment="Center" Margin="5">
       <Label DockPanel.Dock="Left" Content="Service URL:" Target="{Binding ElementName=serviceUrl}"
              Width="100" HorizontalContentAlignment="Right" />
-      <TextBox Name="serviceUrl" Text="{Binding ServiceUrl}" />
+      <TextBox Name="serviceUrl" Text="{Binding ServiceUrl}" IsEnabled="{Binding IsServiceUrlEditable}" />
     </DockPanel>
 
-    <Button Grid.Row="2" VerticalAlignment="Top" Width="75" Margin="5"
-            Content="_Connect" Command="{Binding Connect}" />
+    <DockPanel Grid.Row="2" VerticalAlignment="Center" Margin="5" Visibility="{Binding ShowPassword, Converter={StaticResource BooleanToVisibilityConverter}}">
+      <Label DockPanel.Dock="Left" Content="Password:" Target="{Binding ElementName=password}"
+             Width="100" HorizontalContentAlignment="Right" />
+      <PasswordBox Name="password" />
+    </DockPanel>
+
+    <Button Grid.Row="3" VerticalAlignment="Top" Width="75" Margin="5"
+            Content="_Connect" Command="{Binding Connect}"
+            Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+    <StackPanel Grid.Row="3" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+      <Button Width="75" Margin="5"
+              Content="_Submit" Command="{Binding SubmitPassword}"
+              Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+      <Button Width="75" Margin="5"
+              Content="_Cancel" Command="{Binding Cancel}"
+              Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </StackPanel>
   </Grid>
 </UserControl>

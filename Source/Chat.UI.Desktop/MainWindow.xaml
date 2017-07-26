@@ -5,10 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chat.UI.Desktop"
         xmlns:views="clr-namespace:Chat.UI.Desktop.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="RP Chat" Height="350" Width="525"
         WindowStartupLocation="Manual" WindowState="Maximized">
 
-  <views:ConnectionView />
-  
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <views:ConnectionView Grid.Row="0" />
+
+    <StatusBar Grid.Row="1">
+      <TextBlock Text="{Binding Errors}" />
+
+      <ComboBox SelectedItem="{Binding Status}" IsEnabled="{Binding StatusIsEnabled}">
+        <sys:String>Offline</sys:String>
+        <sys:String>Online</sys:String>
+        <sys:String>Busy</sys:String>
+        <sys:String>Away</sys:String>
+      </ComboBox>
+    </StatusBar>
+  </Grid>
+
 </Window>
