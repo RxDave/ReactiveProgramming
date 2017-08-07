@@ -63,7 +63,7 @@
 
 ##### Receiving Messages
 1. When a message is received:
-   1. If the user's status is not "busy" and the message matches the user's current filter criteria (if any):
+   1. If the user's status is not "offline" and the message matches the user's current filter criteria (if any):
       1. Append the message to the message list.
          1. Include the date and/or time based on the user's current preferences.
          1. Render the message in the font, size and color received with the message. If none received, use defaults.

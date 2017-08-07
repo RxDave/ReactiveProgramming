@@ -24,7 +24,7 @@ Finally, we'll measure performance and memory usage, and adjust our code to meet
 1. Choose any user name.
 2. Enter a service URL and connect.
 3. Disconnect at any time. (Closing the application also disconnects.)
-4. Change status (available, busy, away, etc.) without disconnecting. "Busy" status will block all messages.
+4. Change status (available, busy, away, offline, etc.) without disconnecting. "Offline" status will block all messages.
 5. Filter messages by user name or search criteria. (RP201: Improved with [Qactive](https://github.com/RxDave/Qactive).)
 6. Optionally have a sound played when a message arrives.
 7. Choose a system sound or a custom sound file to play. (Default is C:\Windows\Media\Windows Notify.wav).
