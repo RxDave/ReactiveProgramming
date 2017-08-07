@@ -22,13 +22,13 @@
     <DockPanel Grid.Row="0" VerticalAlignment="Bottom" Margin="5">
       <Label DockPanel.Dock="Left" Content="User name:" Target="{Binding ElementName=userName}"
              Width="100" HorizontalContentAlignment="Right" />
-      <TextBox Name="userName" Text="{Binding UserName}" IsEnabled="{Binding IsUserNameEditable}" />
+      <TextBox Name="userName" Text="{Binding UserName, ValidatesOnExceptions=True}" IsEnabled="{Binding IsUserNameEditable}" />
     </DockPanel>
 
     <DockPanel Grid.Row="1" VerticalAlignment="Center" Margin="5">
       <Label DockPanel.Dock="Left" Content="Service URL:" Target="{Binding ElementName=serviceUrl}"
              Width="100" HorizontalContentAlignment="Right" />
-      <TextBox Name="serviceUrl" Text="{Binding ServiceUrl}" IsEnabled="{Binding IsServiceUrlEditable}" />
+      <TextBox Name="serviceUrl" Text="{Binding ServiceUrl, ValidatesOnExceptions=True}" IsEnabled="{Binding IsServiceUrlEditable}" />
     </DockPanel>
 
     <DockPanel Grid.Row="2" VerticalAlignment="Center" Margin="5" Visibility="{Binding ShowPassword, Converter={StaticResource BooleanToVisibilityConverter}}">
