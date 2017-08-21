@@ -19,7 +19,7 @@ Using a reactive-first approach, I'll design and implement a client-server chat 
 
 [Watch the series now on YouTube as it develops!](https://www.youtube.com/playlist?list=PLzLa5EktSmly4OP2nvzGfwdbVDn52d1rM)
 
-[![RP101](https://img.youtube.com/vi/WBn4ZhR7C94/0.jpg)](https://www.youtube.com/playlist?list=PLzLa5EktSmly4OP2nvzGfwdbVDn52d1rM)
+[![RP101](https://img.youtube.com/vi/Ohs6ZbuNXqU/0.jpg)](https://www.youtube.com/playlist?list=PLzLa5EktSmly4OP2nvzGfwdbVDn52d1rM)
 
 All of my coding sessions will be recorded in a screen cast video series, accompanied by verbal explanations as I'm coding. None 
 of the design or the work has been planned ahead of time, except for the first draft of the
